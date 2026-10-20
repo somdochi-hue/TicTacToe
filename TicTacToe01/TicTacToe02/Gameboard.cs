@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 
 namespace TicTacToe02
 {
     internal class Gameboard
     {
         private bool player;
-        private bool comma;
-        private string[] box = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        private string[] box = Enumerable.Repeat(".", 9).ToArray();
 
         public void GameBorad()
         {
@@ -26,22 +27,27 @@ namespace TicTacToe02
         {
             if (!player)
             {
-                
                 Console.WriteLine("플레이어 X의 차례입니다.");
                 Console.Write("위치를 선택하세요 (1~9): ");
-                string X = Console.ReadLine();
-                for (int i = 0; i < box.Length; i++)
+                if (int.TryParse(Console.ReadLine(), out int choice))
                 {
-                    if (X == box[i])
+                    int i = choice - 1;
+                    if (i >= 0 && i < box.Length && box[i] == ".")
                     {
                         box[i] = "X";
+                        WinerCondition("X");
                         player = true;
-                        break;
                     }
                     else
                     {
-                        Console.WriteLine("1부터 9까지의 번호를 입력하세요.");
+                        Console.WriteLine("이미 선택된 자리입니다.");
+                        Thread.Sleep(2000);
                     }
+                }
+                else
+                {
+                    Console.WriteLine("1부터 9까지의 번호를 입력하세요.");
+                    Thread.Sleep(2000);
                 }
             }
 
@@ -49,32 +55,50 @@ namespace TicTacToe02
             {
                 Console.WriteLine("플레이어 O의 차례입니다.");
                 Console.Write("위치를 선택하세요 (1~9): ");
-                string O = Console.ReadLine();
-                for (int i = 0; i < box.Length; i++)
+                if (int.TryParse(Console.ReadLine(), out int choice))
                 {
-                    if (O == box[i])
+                    int i = choice - 1;
+                    if (i >= 0 && i < box.Length && box[i] == ".")
                     {
                         box[i] = "O";
+                        WinerCondition("O");
                         player = false;
-                        break;
                     }
                     else
                     {
-                        Console.WriteLine("1부터 9까지의 번호를 입력하세요.");
+                        Console.WriteLine("이미 선택된 자리입니다.");
+                        Thread.Sleep(2000);
                     }
+                }
+                else
+                {
+                    Console.WriteLine("1부터 9까지의 번호를 입력하세요.");
+                    Thread.Sleep(2000);
                 }
             }
         }
-        public bool Winer(string player)
+        public void WinerCondition(string player)
         {
-           return (box[0] == player && box[1] == player && box[2] == player) ||
+           if ((box[0] == player && box[1] == player && box[2] == player) ||
                   (box[3] == player && box[4] == player && box[5] == player) ||
                   (box[6] == player && box[7] == player && box[8] == player) ||
                   (box[0] == player && box[3] == player && box[6] == player) ||
                   (box[1] == player && box[4] == player && box[7] == player) ||
                   (box[2] == player && box[5] == player && box[8] == player) ||
                   (box[0] == player && box[4] == player && box[8] == player) ||
-                  (box[2] == player && box[4] == player && box[6] == player);
+                  (box[2] == player && box[4] == player && box[6] == player))
+            {
+                if (player == "X")
+                {
+                    Console.WriteLine("X 승리!");
+                    Thread.Sleep(2000);
+                }
+                else if (player == "O")
+                {
+                    Console.WriteLine("O 승리!");
+                    Thread.Sleep(2000);
+                }
+            }
         }
     }
 }
