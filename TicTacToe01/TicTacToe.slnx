@@ -1,4 +1,3 @@
 <Solution>
-  <Project Path="pj.TicTacToe/pj.TicTacToe.csproj" />
-  <Project Path="TicTacToe02/TicTacToe02.csproj" />
+  <Project Path="TicTacToe02/TicTacToe.csproj" />
 </Solution>

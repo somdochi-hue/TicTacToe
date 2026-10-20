@@ -32,23 +32,27 @@ namespace TicTacToe02
                 if (int.TryParse(Console.ReadLine(), out int choice))
                 {
                     int i = choice - 1;
-                    if (i >= 0 && i < box.Length && box[i] == ".")
+                    if (i >= 0 && i < box.Length)
                     {
-                        box[i] = "X";
-                        WinerCondition("X");
-                        player = true;
+                        if (box[i] == ".")
+                        {
+                            box[i] = "X";
+                            WinerCondition("X");
+                            player = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("이미 선택된 자리입니다.");
+                            Thread.Sleep(2000);
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("이미 선택된 자리입니다.");
+                        Console.WriteLine("1부터 9까지의 번호를 입력하세요.");
                         Thread.Sleep(2000);
                     }
                 }
-                else
-                {
-                    Console.WriteLine("1부터 9까지의 번호를 입력하세요.");
-                    Thread.Sleep(2000);
-                }
+
             }
 
             else
@@ -58,22 +62,25 @@ namespace TicTacToe02
                 if (int.TryParse(Console.ReadLine(), out int choice))
                 {
                     int i = choice - 1;
-                    if (i >= 0 && i < box.Length && box[i] == ".")
+                    if (i >= 0 && i < box.Length)
                     {
-                        box[i] = "O";
-                        WinerCondition("O");
-                        player = false;
+                        if (box[i] == ".")
+                        {
+                            box[i] = "O";
+                            WinerCondition("O");
+                            player = false;
+                        }
+                        else
+                        {
+                            Console.WriteLine("이미 선택된 자리입니다.");
+                            Thread.Sleep(2000);
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("이미 선택된 자리입니다.");
+                        Console.WriteLine("1부터 9까지의 번호를 입력하세요.");
                         Thread.Sleep(2000);
                     }
-                }
-                else
-                {
-                    Console.WriteLine("1부터 9까지의 번호를 입력하세요.");
-                    Thread.Sleep(2000);
                 }
             }
         }
@@ -97,6 +104,7 @@ namespace TicTacToe02
                 {
                     Console.WriteLine("O 승리!");
                     Thread.Sleep(2000);
+
                 }
             }
         }
